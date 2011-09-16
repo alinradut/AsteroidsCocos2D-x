@@ -16,7 +16,7 @@ class Ship : public cocos2d::CCSprite
 public:
 	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
 	virtual bool initWithTexture(cocos2d::CCTexture2D *pTexture, cocos2d::CCRect rect);  
-    void update(cocos2d::ccTime dt);
+    virtual void update(cocos2d::ccTime dt);
 	
     CC_SYNTHESIZE(cocos2d::CCPoint, velocity_, Velocity);
 	// implement the "static node()" method manually

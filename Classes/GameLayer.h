@@ -24,11 +24,11 @@ public:
 	// implement the "static node()" method manually
 	LAYER_NODE_FUNC(GameLayer);
     
+    cocos2d::CCMutableArray<cocos2d::CCTouch *>* allTouchesFromSet(cocos2d::CCSet *touches);
     virtual void ccTouchesBegan(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
     virtual void ccTouchesMoved(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
     virtual void ccTouchesEnded(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
 
-    std::vector<CCObject *> setToArray(std::set<CCObject *> input);
 private:
     Ship *ship_;
 	// To determine rotation
