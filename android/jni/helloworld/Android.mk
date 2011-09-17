@@ -4,6 +4,8 @@ LOCAL_MODULE := game
 
 LOCAL_SRC_FILES := main.cpp \
 ../../../Classes/AppDelegate.cpp \
+../../../Classes/Ship.cpp \
+../../../Classes/GameLayer.cpp \
 ../../../Classes/HelloWorldScene.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../libs/cocos2dx \
