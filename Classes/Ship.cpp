@@ -10,14 +10,17 @@
 
 USING_NS_CC;
 
-bool Ship::initWithTexture(CCTexture2D *pTexture, CCRect rect)
+Ship* Ship::spriteWithFile(const char *pszFileName)
 {
-    if (!CCSprite::initWithTexture(pTexture, rect))
+    Ship *pobSprite = new Ship();
+    if (pobSprite && pobSprite->initWithFile(pszFileName))
     {
-        return false;
+        pobSprite->scheduleUpdate();
+        pobSprite->autorelease();
+        return pobSprite;
     }
-    this->scheduleUpdate();
-    return true;
+    CC_SAFE_DELETE(pobSprite);
+	return NULL;
 }
 
 void Ship::update(cocos2d::ccTime dt)
@@ -39,7 +42,7 @@ void Ship::update(cocos2d::ccTime dt)
     {
         this->setPosition(ccp(this->getPosition().x, windowSize.height));
     }
-    else if (this->getPosition().x > windowSize.height)
+    else if (this->getPosition().y > windowSize.height)
     {
         this->setPosition(ccp(this->getPosition().x, 0));
     }

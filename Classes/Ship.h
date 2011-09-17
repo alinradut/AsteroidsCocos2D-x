@@ -14,10 +14,11 @@
 class Ship : public cocos2d::CCSprite
 {
 public:
+    Ship() {};
 	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-	virtual bool initWithTexture(cocos2d::CCTexture2D *pTexture, cocos2d::CCRect rect);  
+    
     virtual void update(cocos2d::ccTime dt);
-	
+	static Ship* spriteWithFile(const char *pszFileName);
     CC_SYNTHESIZE(cocos2d::CCPoint, velocity_, Velocity);
 	// implement the "static node()" method manually
 	LAYER_NODE_FUNC(Ship);
