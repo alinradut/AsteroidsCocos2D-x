@@ -35,6 +35,8 @@ public:
     void createBullet();
     void startLevel();
     void resetShip();
+    void gameOver();
+    void backButtonAction(CCObject* pSender);
 
 private:
     Ship *ship_;

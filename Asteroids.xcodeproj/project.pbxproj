@@ -702,6 +702,7 @@
 		2D500B1D0D5A766B00DBA0E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3B8F82931425D17200D46959 /* GameConfig.h */,
 				D4D9411113EADBA700555460 /* AppDelegate.cpp */,
 				D4D9411213EADBA700555460 /* AppDelegate.h */,
 				3B50AF591423A8EA00FE13FC /* Ship.cpp */,
@@ -712,7 +713,6 @@
 				3B8F82871425C7A100D46959 /* Asteroid.h */,
 				3B8F828A1425C7B100D46959 /* Bullet.cpp */,
 				3B8F828B1425C7B100D46959 /* Bullet.h */,
-				3B8F82931425D17200D46959 /* GameConfig.h */,
 				3BB3994A1425EF6A0087ED44 /* TitleLayer.cpp */,
 				3BB3994B1425EF6A0087ED44 /* TitleLayer.h */,
 				3BB3994D1425EF720087ED44 /* ControlsLayer.cpp */,

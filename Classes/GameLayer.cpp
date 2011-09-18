@@ -10,6 +10,7 @@
 #include "GameConfig.h"
 #include "Asteroid.h"
 #include "Bullet.h"
+#include "TitleLayer.h"
 
 USING_NS_CC;
 
@@ -92,17 +93,9 @@ void GameLayer::update(ccTime dt)
         // Check if asteroid hits ship
         if (a->collidesWith(ship_))
         {
-            // Reset ship position
-            this->resetShip();
-            
-            // Remove the asteroid the ship collided with
-            asteroidsToDelete->addObject(a);
-            
-            // Remove asteroid sprite from layer
-            this->removeChild(a, false);
-            
-            // This asteroid is gone, so go to the next one - no need to check if a bullet has also hit it
-            continue;
+            // Game over, man!
+            this->gameOver();
+            return;
         }
         
         // Check if asteroid hits bullet, or if bullet is expired
@@ -353,4 +346,29 @@ void GameLayer::resetShip()
     }
     
     bullets_->removeAllObjects();
+}
+
+void GameLayer::gameOver()
+{
+    this->resetShip();
+    
+    ship_->setIsVisible(false);
+    
+    CCSize windowSize = CCDirector::sharedDirector()->getWinSize();
+    
+    CCLabelTTF *title = CCLabelTTF::labelWithString("game over", "Courier", 64.0);
+    title->setPosition(ccp(windowSize.width / 2, windowSize.height/2));
+    this->addChild(title, 1);
+    
+    CCMenuItemFont *backButton = CCMenuItemFont::itemFromString("back to title", this, menu_selector(GameLayer::backButtonAction));
+    
+    CCMenu *menu = CCMenu::menuWithItems(backButton, NULL);
+    menu->setPosition(ccp(windowSize.width/2, title->getPosition().y - title->getContentSize().height));
+    
+    this->addChild(menu, 2);
+}
+
+void GameLayer::backButtonAction(CCObject* pSender)
+{
+    CCDirector::sharedDirector()->replaceScene(TitleLayer::scene());
 }
