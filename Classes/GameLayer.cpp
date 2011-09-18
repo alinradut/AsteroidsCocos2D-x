@@ -54,6 +54,8 @@ bool GameLayer::init()
     
     asteroids_ = new CCMutableArray<CCSprite *>();
     bullets_ = new CCMutableArray<CCSprite *>();
+
+    currentLevel_ = 0;
     
     this->startLevel();
     
@@ -351,6 +353,7 @@ void GameLayer::resetShip()
 void GameLayer::gameOver()
 {
     this->resetShip();
+    this->unscheduleUpdate();
     
     ship_->setIsVisible(false);
     
