@@ -16,6 +16,9 @@
 		3B8F82981425DDD000D46959 /* asteroid-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B8F82951425DDD000D46959 /* asteroid-small.png */; };
 		3B8F82991425DDD000D46959 /* asteroid-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B8F82961425DDD000D46959 /* asteroid-large.png */; };
 		3B8F829B1425E40700D46959 /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B8F829A1425E40700D46959 /* bullet.png */; };
+		3BB3994C1425EF6A0087ED44 /* TitleLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BB3994A1425EF6A0087ED44 /* TitleLayer.cpp */; };
+		3BB3994F1425EF720087ED44 /* ControlsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BB3994D1425EF720087ED44 /* ControlsLayer.cpp */; };
+		3BB399521425EF810087ED44 /* ScoresLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BB399501425EF810087ED44 /* ScoresLayer.cpp */; };
 		505574581045D68500A31725 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */; };
 		505574591045D68500A31725 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
 		5055745A1045D68500A31725 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
@@ -324,6 +327,12 @@
 		3B8F82951425DDD000D46959 /* asteroid-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "asteroid-small.png"; sourceTree = "<group>"; };
 		3B8F82961425DDD000D46959 /* asteroid-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "asteroid-large.png"; sourceTree = "<group>"; };
 		3B8F829A1425E40700D46959 /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
+		3BB3994A1425EF6A0087ED44 /* TitleLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleLayer.cpp; sourceTree = "<group>"; };
+		3BB3994B1425EF6A0087ED44 /* TitleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleLayer.h; sourceTree = "<group>"; };
+		3BB3994D1425EF720087ED44 /* ControlsLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControlsLayer.cpp; sourceTree = "<group>"; };
+		3BB3994E1425EF720087ED44 /* ControlsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsLayer.h; sourceTree = "<group>"; };
+		3BB399501425EF810087ED44 /* ScoresLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScoresLayer.cpp; sourceTree = "<group>"; };
+		3BB399511425EF810087ED44 /* ScoresLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoresLayer.h; sourceTree = "<group>"; };
 		506EDB87102F4C4000A389B3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		506EE05E10304ED200A389B3 /* libcocos2d libraries.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcocos2d libraries.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -704,6 +713,12 @@
 				3B8F828A1425C7B100D46959 /* Bullet.cpp */,
 				3B8F828B1425C7B100D46959 /* Bullet.h */,
 				3B8F82931425D17200D46959 /* GameConfig.h */,
+				3BB3994A1425EF6A0087ED44 /* TitleLayer.cpp */,
+				3BB3994B1425EF6A0087ED44 /* TitleLayer.h */,
+				3BB3994D1425EF720087ED44 /* ControlsLayer.cpp */,
+				3BB3994E1425EF720087ED44 /* ControlsLayer.h */,
+				3BB399501425EF810087ED44 /* ScoresLayer.cpp */,
+				3BB399511425EF810087ED44 /* ScoresLayer.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1459,6 +1474,9 @@
 				3B50AF5E1423AD4700FE13FC /* GameLayer.cpp in Sources */,
 				3B8F82881425C7A100D46959 /* Asteroid.cpp in Sources */,
 				3B8F828C1425C7B100D46959 /* Bullet.cpp in Sources */,
+				3BB3994C1425EF6A0087ED44 /* TitleLayer.cpp in Sources */,
+				3BB3994F1425EF720087ED44 /* ControlsLayer.cpp in Sources */,
+				3BB399521425EF810087ED44 /* ScoresLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
