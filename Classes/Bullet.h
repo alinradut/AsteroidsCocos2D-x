@@ -16,7 +16,11 @@ class Bullet : public cocos2d::CCSprite
 public:    
     virtual void update(cocos2d::ccTime dt);
 	static Bullet* spriteWithFile(const char *pszFileName);
+
+    CC_SYNTHESIZE(float, distanceMoved_, DistanceMoved);
     CC_SYNTHESIZE(cocos2d::CCPoint, velocity_, Velocity);
+    CC_SYNTHESIZE(bool, expired_, Expired);
+
 	// implement the "static node()" method manually
 	LAYER_NODE_FUNC(Bullet);
 };

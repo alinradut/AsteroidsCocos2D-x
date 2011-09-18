@@ -15,6 +15,7 @@
 class GameLayer : public cocos2d::CCLayer
 {
 public:
+    ~GameLayer();
 	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
 	virtual bool init();  
     
@@ -29,6 +30,11 @@ public:
     virtual void ccTouchesMoved(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
     virtual void ccTouchesEnded(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
 
+    void createAsteroidAt(cocos2d::CCPoint position , int size);
+    void createBullet();
+    void startLevel();
+    void resetShip();
+
 private:
     Ship *ship_;
 	// To determine rotation
@@ -36,6 +42,13 @@ private:
     
 	// To determine movement/shooting
     cocos2d::CCPoint startTouchPoint_, endTouchPoint_;
+    
+    // Arrays used to keep track of all visible asteroids/bullets
+    cocos2d::CCMutableArray<> *asteroids_;
+    cocos2d::CCMutableArray<cocos2d::CCSprite *> *bullets_;
+    
+    // Used to determine the number of asteroids that appear
+    int currentLevel_;
 };
 
 #endif // __GAMELAYER_H__

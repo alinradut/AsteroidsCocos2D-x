@@ -7,8 +7,17 @@
 //
 
 #include "GameLayer.h"
+#include "GameConfig.h"
+#include "Asteroid.h"
+#include "Bullet.h"
 
 USING_NS_CC;
+
+GameLayer::~GameLayer()
+{
+    CC_SAFE_RELEASE_NULL(asteroids_);
+    CC_SAFE_RELEASE_NULL(bullets_);
+}
 
 CCScene* GameLayer::scene()
 {
@@ -41,6 +50,11 @@ bool GameLayer::init()
     ship_ = (Ship *)Ship::spriteWithFile("ship.png");
     ship_->setPosition(ccp(windowSize.width / 2, windowSize.height / 2));
     this->addChild(ship_);
+    
+    asteroids_ = new CCMutableArray<>();
+    bullets_ = new CCMutableArray<CCSprite *>();
+    
+    this->startLevel();
     
 	return true;
 }
@@ -151,7 +165,7 @@ void GameLayer::ccTouchesEnded(CCSet* touches, CCEvent* event)
         // If the distance moved (in pixels) is small enough, consider the gesture a tap
         if (distance < 5)
         {
-            CCLog("Shoot!");
+            this->createBullet();
         }
         // Otherwise, it's a swipe
         else
@@ -161,4 +175,88 @@ void GameLayer::ccTouchesEnded(CCSet* touches, CCEvent* event)
                                    -sin(CC_DEGREES_TO_RADIANS(ship_->getRotation())) * distance / 100));
         }
     }
+}
+
+void GameLayer::createAsteroidAt(cocos2d::CCPoint position , int size)
+{
+    const char *imageFile;
+    
+    switch (size) {
+        case kAsteroidLarge:
+            imageFile = "asteroid-large.png";
+            break;
+        case kAsteroidMedium:
+            imageFile = "asteroid-medium.png";
+            break;
+        case kAsteroidSmall:
+            imageFile = "asteroid-small.png";
+            break;
+            
+        default:
+            break;
+    }
+    
+    Asteroid *a = Asteroid::spriteWithFile(imageFile);
+    a->setSize(size);
+    a->setPosition(position);
+    
+    // Random numbers 
+    a->setVelocity(ccp((float)(arc4random() % 100) / 100 - 1, (float)(arc4random() % 100) / 100 - 1));
+    
+    // Add asteroid to organization array
+    asteroids_->addObject(a);
+    
+    // Add asteroid to layer
+    this->addChild(a);
+}
+
+void GameLayer::createBullet()
+{
+    Bullet *b = Bullet::spriteWithFile("bullet.png");
+    
+    // Set the bullet's position by starting w/ the ship's position, then adding the rotation vector, so the bullet appears to come from the ship's nose
+    
+    b->setPosition(ccp(ship_->getPosition().x + cos(CC_DEGREES_TO_RADIANS(ship_->getRotation())) * ship_->getContentSize().width, 
+                       ship_->getPosition().y - sin(CC_DEGREES_TO_RADIANS(ship_->getRotation())) * ship_->getContentSize().height));
+    
+    // Set the bullet's velocity to be in the same direction as the ship is pointing, plus whatever the ship's velocity is
+    b->setVelocity(ccp(cos(CC_DEGREES_TO_RADIANS(ship_->getRotation())) * 2 + ship_->getVelocity().x, 
+                       -sin(CC_DEGREES_TO_RADIANS(ship_->getRotation())) * 2 + ship_->getVelocity().y));
+    
+    // Add bullet to organizational array
+    bullets_->addObject(b);
+     
+    // Add bullet to layer
+    this->addChild(b);
+}
+
+void GameLayer::startLevel()
+{
+    // Reset the ship's position, which also removes all bullets
+    this->resetShip();
+    
+    // Get window size
+    CCSize windowSize = CCDirector::sharedDirector()->getWinSize();
+    
+    // Create asteroids based on level number
+	for (int i = 0; i < (currentLevel_ + 2); i++)
+	{
+		// Random numbers
+		CCPoint randomPointOnScreen = ccp((float)(arc4random() % 100) / 100 * windowSize.width, (float)(arc4random() % 100) / 100 * windowSize.height);
+        
+        this->createAsteroidAt(randomPointOnScreen, kAsteroidLarge);
+	}
+}
+
+void GameLayer::resetShip()
+{
+    CCMutableArray<CCSprite *>::CCMutableArrayIterator it;
+    
+    for (it = bullets_->begin(); it != bullets_->end(); it++)
+    {
+        Bullet *b = (Bullet *)*it;
+        this->removeChild(b, true);
+    }
+    
+    bullets_->removeAllObjects();
 }

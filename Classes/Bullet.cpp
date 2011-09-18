@@ -16,6 +16,7 @@ Bullet* Bullet::spriteWithFile(const char *pszFileName)
     if (pobSprite && pobSprite->initWithFile(pszFileName))
     {
         pobSprite->scheduleUpdate();
+        pobSprite->setDistanceMoved(0);
         pobSprite->autorelease();
         return pobSprite;
     }
@@ -29,6 +30,16 @@ void Bullet::update(cocos2d::ccTime dt)
     
     CCSize windowSize = CCDirector::sharedDirector()->getWinSize();
     
+    // Increment the distance moved by the velocity vector
+    distanceMoved_ += sqrt(pow(velocity_.x, 2) + pow(velocity_.y, 2));
+     
+    // Determine if bullet is expired -- check to see if its gone at least half the width of the screen
+    if (distanceMoved_ > windowSize.width / 2)
+    {
+        expired_ = true;
+    }
+    
+    // If object moves off the bounds of the screen, make it appear on the other side
     if (this->getPosition().x < 0)
     {
         this->setPosition(ccp(windowSize.width, this->getPosition().y));
