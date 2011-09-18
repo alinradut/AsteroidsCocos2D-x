@@ -69,19 +69,25 @@ void GameLayer::update(ccTime dt)
         this->startLevel();
     }
     
-    
+    // Array that keeps asteroids that need to be removed
     CCMutableArray<CCSprite *> *asteroidsToDelete = new CCMutableArray<CCSprite *>();
     asteroidsToDelete->autorelease();
     
+    // Array that keeps asteroids that need to be split in half
+    CCMutableArray<CCSprite *> *asteroidsToSplit = new CCMutableArray<CCSprite *>();
+    asteroidsToSplit->autorelease();
+    
+    // Array that keeps expired or otherwise exploded bullets that need to be removed
     CCMutableArray<CCSprite *> *bulletsToDelete = new CCMutableArray<CCSprite *>();
     bulletsToDelete->autorelease();
     
     CCMutableArray<CCSprite *>::CCMutableArrayIterator it, jt;
-    
+    int i=0;
     // Check for collisions vs. asteroids
     for (it = asteroids_->begin(); it != asteroids_->end(); it++)
     {
         Asteroid *a = (Asteroid *)*it;
+        CCLog("asteroid #%d", i++);
         
         // Check if asteroid hits ship
         if (a->collidesWith(ship_))
@@ -128,15 +134,21 @@ void GameLayer::update(ccTime dt)
 
                 if (a->getSize() < kAsteroidSmall)
                 {
-                    for (int i = 0; i < 2; i++)
-                    {
-                        this->createAsteroidAt(a->getPosition(), a->getSize()+1);
-                    }
+                    asteroidsToSplit->addObject(a);
                 }
             }
         }
     }
     
+    // split the larger asteroids that were hit by bullets
+    for (it = asteroidsToSplit->begin(); it != asteroidsToSplit->end(); it++)
+    {
+        Asteroid *a = (Asteroid *)*it;
+        for (int i = 0; i < 2; i++)
+        {
+            this->createAsteroidAt(a->getPosition(), a->getSize()+1);
+        }
+    }
     asteroids_->removeObjectsInArray(asteroidsToDelete);
     bullets_->removeObjectsInArray(bulletsToDelete);
 }

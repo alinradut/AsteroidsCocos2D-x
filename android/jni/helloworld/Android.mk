@@ -7,8 +7,7 @@ LOCAL_SRC_FILES := main.cpp \
 ../../../Classes/Ship.cpp \
 ../../../Classes/Asteroid.cpp \
 ../../../Classes/Bullet.cpp \
-../../../Classes/GameLayer.cpp \
-../../../Classes/HelloWorldScene.cpp
+../../../Classes/GameLayer.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../libs/cocos2dx \
                     $(LOCAL_PATH)/../../../libs/cocos2dx/platform \
