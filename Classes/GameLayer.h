@@ -18,6 +18,7 @@ public:
     ~GameLayer();
 	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
 	virtual bool init();  
+    void update(cocos2d::ccTime dt);
     
 	// there's no 'id' in cpp, so we recommand to return the exactly class pointer
 	static cocos2d::CCScene* scene();
@@ -44,7 +45,7 @@ private:
     cocos2d::CCPoint startTouchPoint_, endTouchPoint_;
     
     // Arrays used to keep track of all visible asteroids/bullets
-    cocos2d::CCMutableArray<> *asteroids_;
+    cocos2d::CCMutableArray<cocos2d::CCSprite *> *asteroids_;
     cocos2d::CCMutableArray<cocos2d::CCSprite *> *bullets_;
     
     // Used to determine the number of asteroids that appear

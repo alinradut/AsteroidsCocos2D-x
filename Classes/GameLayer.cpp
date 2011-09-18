@@ -51,12 +51,94 @@ bool GameLayer::init()
     ship_->setPosition(ccp(windowSize.width / 2, windowSize.height / 2));
     this->addChild(ship_);
     
-    asteroids_ = new CCMutableArray<>();
+    asteroids_ = new CCMutableArray<CCSprite *>();
     bullets_ = new CCMutableArray<CCSprite *>();
     
     this->startLevel();
     
+    this->scheduleUpdate();
+    
 	return true;
+}
+
+void GameLayer::update(ccTime dt)
+{
+    if (asteroids_->count() == 0)
+    {
+        currentLevel_++;
+        this->startLevel();
+    }
+    
+    
+    CCMutableArray<CCSprite *> *asteroidsToDelete = new CCMutableArray<CCSprite *>();
+    asteroidsToDelete->autorelease();
+    
+    CCMutableArray<CCSprite *> *bulletsToDelete = new CCMutableArray<CCSprite *>();
+    bulletsToDelete->autorelease();
+    
+    CCMutableArray<CCSprite *>::CCMutableArrayIterator it, jt;
+    
+    // Check for collisions vs. asteroids
+    for (it = asteroids_->begin(); it != asteroids_->end(); it++)
+    {
+        Asteroid *a = (Asteroid *)*it;
+        
+        // Check if asteroid hits ship
+        if (a->collidesWith(ship_))
+        {
+            // Reset ship position
+            this->resetShip();
+            
+            // Remove the asteroid the ship collided with
+            asteroidsToDelete->addObject(a);
+            
+            // Remove asteroid sprite from layer
+            this->removeChild(a, false);
+            
+            // This asteroid is gone, so go to the next one - no need to check if a bullet has also hit it
+            continue;
+        }
+        
+        // Check if asteroid hits bullet, or if bullet is expired
+        for (jt = bullets_->begin(); jt != bullets_->end(); jt++)
+        {
+            Bullet *b = (Bullet *)*jt;
+            
+            if (b->getExpired())
+            {
+                // Remove the bullet from organizational array
+                bulletsToDelete->addObject(b);
+                
+                // Remove bullet sprite from layer
+                this->removeChild(b, false);
+            }
+            else if (a->collidesWith(b))
+            {
+                // Remove the asteroid the bullet collided with
+                asteroidsToDelete->addObject(a);
+                
+                // Remove asteroid sprite from layer
+                this->removeChild(a, false);
+                
+                // Remove the bullet the asteroid collided with
+                bulletsToDelete->addObject(b);
+                
+                // Remove bullet sprite from layer
+                this->removeChild(b, false);
+
+                if (a->getSize() < kAsteroidSmall)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        this->createAsteroidAt(a->getPosition(), a->getSize()+1);
+                    }
+                }
+            }
+        }
+    }
+    
+    asteroids_->removeObjectsInArray(asteroidsToDelete);
+    bullets_->removeObjectsInArray(bulletsToDelete);
 }
 
 CCMutableArray<CCTouch *>* GameLayer::allTouchesFromSet(CCSet *touches)
