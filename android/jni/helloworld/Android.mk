@@ -5,6 +5,8 @@ LOCAL_MODULE := game
 LOCAL_SRC_FILES := main.cpp \
 ../../../Classes/AppDelegate.cpp \
 ../../../Classes/Ship.cpp \
+../../../Classes/Asteroid.cpp \
+../../../Classes/Bullet.cpp \
 ../../../Classes/GameLayer.cpp \
 ../../../Classes/HelloWorldScene.cpp
 

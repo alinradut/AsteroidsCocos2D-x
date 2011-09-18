@@ -1,24 +1,24 @@
 //
-//  Ship.h
+//  Bullet.h
 //  Asteroids
 //
-//  Created by Clawoo on 9/16/11.
+//  Created by Clawoo on 9/18/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef __SHIP_H__
-#define __SHIP_H__
+#ifndef __BULLET_H__
+#define __BULLET_H__
 
 #include "cocos2d.h"
 
-class Ship : public cocos2d::CCSprite
+class Bullet : public cocos2d::CCSprite
 {
-public:
+public:    
     virtual void update(cocos2d::ccTime dt);
-	static Ship* spriteWithFile(const char *pszFileName);
+	static Bullet* spriteWithFile(const char *pszFileName);
     CC_SYNTHESIZE(cocos2d::CCPoint, velocity_, Velocity);
 	// implement the "static node()" method manually
-	LAYER_NODE_FUNC(Ship);
+	LAYER_NODE_FUNC(Bullet);
 };
 
-#endif // __SHIP_H__
+#endif // __BULLET_H__
